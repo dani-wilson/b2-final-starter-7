@@ -1,3 +1,5 @@
 <%= render partial: "shared/nav" %>
 </br>
-<h3><%= We have a <%= @merchant.bulk_discounts>>
+<% @merchant.bulk_discounts.each do |discount| %>
+  <h3>We have a <%= discount.percentage_discount.round(0) %>% discount when you buy <%= discount.quantity_threshold%> or more <%= link_to "items", merchant_discount_path(@merchant, discount)%>!</h3>
+<%end%>
