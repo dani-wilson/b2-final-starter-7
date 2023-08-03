@@ -107,7 +107,7 @@ RSpec.describe "merchant dashboard" do
     end
   end
 
-  it "each invoice id is a link to my merchant's invoice show page " do
+  it "each invoice id is a link to my merchant's invoice show page" do
     expect(page).to have_link("#{@item_1.invoice_ids}")
     expect(page).to have_link("#{@item_2.invoice_ids}")
     expect(page).to_not have_link("#{@item_3.invoice_ids}")
@@ -118,5 +118,27 @@ RSpec.describe "merchant dashboard" do
 
   it "shows the date that the invoice was created in this format: Monday, July 18, 2019" do
     expect(page).to have_content(@invoice_1.created_at.strftime("%A, %B %-d, %Y"))
+  end
+  #user story 1
+  # As a merchant
+  # When I visit my merchant dashboard
+  # Then I see a link to view all my discounts
+  # When I click this link
+  # Then I am taken to my bulk discounts index page
+  # Where I see all of my bulk discounts including their
+  # percentage discount and quantity thresholds
+  # And each bulk discount listed includes a link to its show page
+  it "displays a link to view all discounts" do
+    visit merchant_dashboard_index_path(@merchant1)
+
+    expect(page).to have_link "View All Discounts"
+  end
+
+  it "the link takes me to a bulk discounts index page" do
+    visit merchant_dashboard_index_path(@merchant1)
+
+    click_link "View All Discounts"
+
+    expect(current_path).to eq(merchant_discounts_path(@merchant1))
   end
 end
