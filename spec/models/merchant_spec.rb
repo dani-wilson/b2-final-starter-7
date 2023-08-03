@@ -6,6 +6,7 @@ describe Merchant do
   end
   describe "relationships" do
     it { should have_many :items }
+    it { should have_many :bulk_discounts }
     it { should have_many(:invoice_items).through(:items) }
     it {should have_many(:invoices).through(:invoice_items)}
     it { should have_many(:customers).through(:invoices) }
@@ -16,11 +17,25 @@ describe Merchant do
   describe "class methods" do
     before :each do
       @merchant1 = Merchant.create!(name: 'Hair Care')
+      @discount_1 = @merchant1.bulk_discounts.create!(percentage_discount: 75.00, quantity_threshold: 20)
+
       @merchant2 = Merchant.create!(name: 'Jewelry')
+      @discount_2 = @merchant2.bulk_discounts.create!(percentage_discount: 10.00, quantity_threshold: 5)
+      @discount_3 = @merchant2.bulk_discounts.create!(percentage_discount: 25.00, quantity_threshold: 10)
+
       @merchant3 = Merchant.create!(name: 'Office Space')
+      @discount_4 = @merchant3.bulk_discounts.create!(percentage_discount: 30.00, quantity_threshold: 40)
+
       @merchant4 = Merchant.create!(name: 'The Office')
+      @discount_5 = @merchant4.bulk_discounts.create!(percentage_discount: 15.00, quantity_threshold: 10)
+
       @merchant5 = Merchant.create!(name: 'Office Improvement')
+      @discount_6 = @merchant5.bulk_discounts.create!(percentage_discount: 10.00, quantity_threshold: 5)
+      @discount_7 = @merchant5.bulk_discounts.create!(percentage_discount: 35.00, quantity_threshold: 35)
+
       @merchant6 = Merchant.create!(name: 'Pens & Stuff')
+      @discount_8 = @merchant6.bulk_discounts.create!(percentage_discount: 10.00, quantity_threshold: 6)
+
 
       @item_1 = Item.create!(name: "Shampoo", description: "This washes your hair", unit_price: 10, merchant_id: @merchant1.id, status: 1)
       @item_2 = Item.create!(name: "Conditioner", description: "This makes your hair shiny", unit_price: 8, merchant_id: @merchant1.id)
