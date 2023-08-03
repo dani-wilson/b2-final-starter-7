@@ -2,7 +2,25 @@ require "rails_helper"
 
 RSpec.describe "merchant dashboard" do
   before :each do
-    @merchant1 = Merchant.create!(name: "Hair Care")
+    @merchant1 = Merchant.create!(name: 'Hair Care')
+    @discount_1 = @merchant1.bulk_discounts.create!(percentage_discount: 75.00, quantity_threshold: 20)
+
+    @merchant2 = Merchant.create!(name: 'Jewelry')
+    @discount_2 = @merchant2.bulk_discounts.create!(percentage_discount: 10.00, quantity_threshold: 5)
+    @discount_3 = @merchant2.bulk_discounts.create!(percentage_discount: 25.00, quantity_threshold: 10)
+
+    @merchant3 = Merchant.create!(name: 'Office Space')
+    @discount_4 = @merchant3.bulk_discounts.create!(percentage_discount: 30.00, quantity_threshold: 40)
+
+    @merchant4 = Merchant.create!(name: 'The Office')
+    @discount_5 = @merchant4.bulk_discounts.create!(percentage_discount: 15.00, quantity_threshold: 10)
+
+    @merchant5 = Merchant.create!(name: 'Office Improvement')
+    @discount_6 = @merchant5.bulk_discounts.create!(percentage_discount: 10.00, quantity_threshold: 5)
+    @discount_7 = @merchant5.bulk_discounts.create!(percentage_discount: 35.00, quantity_threshold: 35)
+
+    @merchant6 = Merchant.create!(name: 'Pens & Stuff')
+    @discount_8 = @merchant6.bulk_discounts.create!(percentage_discount: 10.00, quantity_threshold: 6)
 
     @customer_1 = Customer.create!(first_name: "Joey", last_name: "Smith")
     @customer_2 = Customer.create!(first_name: "Cecilia", last_name: "Jones")
@@ -145,6 +163,7 @@ RSpec.describe "merchant dashboard" do
   it "displays all bulk discounts including their percentage discount and quantity thresholds" do
     visit merchant_discounts_path(@merchant1)
 
-    expect(page).to have_content(@merchant1)
+    expect(page).to have_content(@discount_1.percentage_discount)
+    expect(page).to have_content(@discount_1.quantity_threshold)
   end
 end
