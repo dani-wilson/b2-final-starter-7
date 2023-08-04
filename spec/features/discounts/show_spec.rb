@@ -59,10 +59,10 @@ RSpec.describe "the bulk discounts show page" do
     @transaction7 = Transaction.create!(credit_card_number: 203942, result: 1, invoice_id: @invoice_2.id)
   end
   # user story 4
-  # As a merchant
-  # When I visit my bulk discount show page
-  # Then I see the bulk discount's quantity threshold and percentage discount
   it "displays attributes of bulk discount" do
-    
+    visit merchant_discount_path(@merchant1, @discount_1.id)
+
+    expect(page).to have_content(@discount_1.percentage_discount.round(0))
+    expect(page).to have_content(@discount_1.quantity_threshold)
   end
 end
