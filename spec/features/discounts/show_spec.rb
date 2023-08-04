@@ -77,7 +77,15 @@ RSpec.describe "the bulk discounts show page" do
   # And I see that the discount's attributes have been updated
   it "displays a link to edit the bulk discount" do
     visit merchant_discount_path(@merchant1, @discount_1.id)
-    save_and_open_page
+
     expect(page).to have_link "Edit Discount"
+  end
+
+  it "when I click the link, I'm taken to a new page with a form to edit the discount" do
+    visit merchant_discount_path(@merchant1, @discount_1.id)
+
+    click_link "Edit Discount"
+
+    expect(current_path).to eq(edit_merchant_discount_path(@merchant1, @discount_1.id))
   end
 end
