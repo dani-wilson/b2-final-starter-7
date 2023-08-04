@@ -3,3 +3,5 @@
 <% @merchant.bulk_discounts.each do |discount| %>
   <h3>We have a <%= discount.percentage_discount.round(0) %>% discount when you buy <%= discount.quantity_threshold%> or more <%= link_to "items", merchant_discount_path(@merchant, discount)%>!</h3>
 <%end%>
+
+<%= link_to "Create a New Discount", new_merchant_discount_path(@merchant) %>
