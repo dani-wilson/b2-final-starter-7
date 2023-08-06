@@ -8,8 +8,8 @@
   url: edit_merchant_discount_path(@merchant, @discount)
   )do |f| %>
   <%= f.label :percentage_discount %>
-  <%= f.text_field :percentage_discount %></br>
+  <%= f.text_field :percentage_discount, :value => @discount.percentage_discount %></br>
   <%= f.label :quantity_threshold %>
-  <%= f.text_field :quantity_threshold %></br>
-  <%= f.submit "Submit" %>
+  <%= f.text_field :quantity_threshold, :value => @discount.quantity_threshold %></br>
+  <%= f.submit "Update" %>
 <% end %>
