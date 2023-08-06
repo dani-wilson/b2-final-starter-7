@@ -1,3 +1,3 @@
 <h3>
-This discount offers <%= @discount.percentage_discount.round(0) %>% off with a purchase of <%= @discount.quantity_threshold %> or more items. </br></h3><%= link_to "Edit Discount", edit_merchant_discount_path(@discount) %>
+This discount offers <%= @discount.percentage_discount.round(0) %>% off with a purchase of <%= @discount.quantity_threshold %> or more items. </br></h3><%= link_to "Edit Discount", edit_merchant_discount_path(@merchant, @discount) %>
 
