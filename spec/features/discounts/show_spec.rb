@@ -88,4 +88,21 @@ RSpec.describe "the bulk discounts show page" do
 
     expect(current_path).to eq(edit_merchant_discount_path(@merchant1, @discount_1.id))
   end
+
+  it "I see the current discount attributes are pre-populated in the form" do
+    visit edit_merchant_discount_path(@merchant1, @discount_1.id)
+
+    expect(page).to have_field('Percentage discount', with: "75.0")
+    expect(page).to have_field('Quantity threshold', with: "20")
+  end
+
+  it "when I change any/all of the form and hit submit, I am redirected to the discounts show page" do
+    visit edit_merchant_discount_path(@merchant1, @discount_1.id)
+
+    fill_in "Quantity threshold", with: "30"
+
+    click_button "Update"
+
+    expect(current_path).to eq(merchant_discount_path(@merchant1, @discount_1.id))
+  end
 end
