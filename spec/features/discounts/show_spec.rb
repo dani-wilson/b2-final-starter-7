@@ -66,15 +66,6 @@ RSpec.describe "the bulk discounts show page" do
     expect(page).to have_content(@discount_1.quantity_threshold)
   end
   # user story 5
-  # As a merchant
-  # When I visit my bulk discount show page
-  # Then I see a link to edit the bulk discount
-  # When I click this link
-  # Then I am taken to a new page with a form to edit the discount
-  # And I see that the discounts current attributes are pre-poluated in the form
-  # When I change any/all of the information and click submit
-  # Then I am redirected to the bulk discount's show page
-  # And I see that the discount's attributes have been updated
   it "displays a link to edit the bulk discount" do
     visit merchant_discount_path(@merchant1, @discount_1.id)
 
@@ -104,5 +95,17 @@ RSpec.describe "the bulk discounts show page" do
     click_button "Update"
 
     expect(current_path).to eq(merchant_discount_path(@merchant1, @discount_1.id))
+  end
+
+  it "When I am redirected to the bulk discounts show page, I see the updated information" do
+    visit edit_merchant_discount_path(@merchant1, @discount_1.id)
+
+    fill_in "Quantity threshold", with: "30"
+
+    click_button "Update"
+
+    expect(current_path).to eq(merchant_discount_path(@merchant1, @discount_1.id))
+
+    expect(page).to have_content("This discount offers 75% off with a purchase of 30 or more items.")
   end
 end
