@@ -7,6 +7,7 @@ class Invoice < ApplicationRecord
   has_many :invoice_items
   has_many :items, through: :invoice_items
   has_many :merchants, through: :items
+  has_many :bulk_discounts, through: :merchants
 
   enum status: [:cancelled, :in_progress, :completed]
 
@@ -14,7 +15,10 @@ class Invoice < ApplicationRecord
     invoice_items.sum("unit_price * quantity")
   end
 
-  def discounted_revenue
-    select("percentage_discount, quantity_threshold, invoice_items.quantity").joins(merchants: :bulk_discounts).where("invoice_items.quantity >= bulk_discounts.quantity_threshold")
+  def discounted_total_revenue
+    price = invoice_items.map do |item|
+      item.total_item_revenue
+    end
+    price.sum
   end
 end

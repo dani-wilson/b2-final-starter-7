@@ -8,4 +8,12 @@ describe BulkDiscount, type: :model do
   describe "relationships" do
     it { should belong_to :merchant }
   end
+  describe "instance methods" do
+    it "percentify" do
+      @merchant1 = Merchant.create!(name: 'Hair Care')
+      @discount_1 = @merchant1.bulk_discounts.create!(percentage_discount: 75, quantity_threshold: 20)
+
+      expect(@discount_1.percentify).to eq(0.75)
+    end
+  end
 end
