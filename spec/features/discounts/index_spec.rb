@@ -97,7 +97,8 @@ RSpec.describe "the discounts index page" do
     fill_in "Quantity threshold", with: 10
     click_button "Submit"
     expect(current_path).to eq(merchant_discounts_path(@merchant1))
-    expect(page).to have_content("We have a 10% discount when you buy 10 or more items!")
+    
+    expect(page).to have_content("Get 10% off when you buy 10 or more items!")
   end
   # user story 3
   it "displays a link to delete each bulk index" do
@@ -118,18 +119,13 @@ RSpec.describe "the discounts index page" do
     expect(page).to_not have_content("We have a 75% discount when you buy 20 or more items!")
   end
   # user story 9
-  # As a merchant
-  # When I visit the discounts index page
-  # I see a section with a header of "Upcoming Holidays"
-  # In this section the name and date of the next 3 upcoming US holidays are listed.
-  # Use the Next Public Holidays Endpoint in the [Nager.Date API](https://date.nager.at/swagger/index.html)
   it "displays a header of Upcoming Holidays" do
     visit merchant_discounts_path(@merchant1)
 
-    expect(page).to have_content("Labor Day")
+    expect(page).to have_content("Labour Day")
     expect(page).to have_content("Columbus Day")
     expect(page).to have_content("Veterans Day")
 
-    expect("Labor Day").to appear_before("Veterans Day")
+    expect("Labour Day").to appear_before("Veterans Day")
   end
 end
