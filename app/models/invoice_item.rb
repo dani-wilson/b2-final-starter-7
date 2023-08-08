@@ -16,7 +16,7 @@ class InvoiceItem < ApplicationRecord
   end
 
   def best_discount
-    BulkDiscount.where('quantity_threshold <= ?', quantity)
+    BulkDiscount.select("percentage_discount").where('quantity_threshold <= ?', quantity)
     .order(percentage_discount: :desc)
     .first
   end
