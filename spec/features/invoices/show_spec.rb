@@ -118,16 +118,13 @@ RSpec.describe "invoices show" do
     expect(page).to have_content("Total Discounted Revenue: $37.50")
   end
   #user story 7
-  # As a merchant
-  # When I visit my merchant invoice show page
-  # Next to each invoice item I see a link to the show page for the bulk discount that was applied (if any)
   it "displays a link to the show page for the bulk discount that was applied" do
-    visit merchant_invoice_path(@merchant2, @invoice_2)
-
-    expect(page).to have_link "Applied Discount"
-
-    first(:link, "Applied Discount").click_button
+    visit merchant_invoice_path(@merchant1, @invoice_2)
     
-    expect(current_path).to eq(merchant_discount_path(@merchant2, @merchant2.best_discount))
+    expect(page).to have_link "25"
+
+    click_link "25"
+    
+    expect(current_path).to eq(merchant_discount_path(@merchant1, @ii_3.best_discount))
   end
 end

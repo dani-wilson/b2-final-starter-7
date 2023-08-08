@@ -100,7 +100,7 @@ RSpec.describe InvoiceItem, type: :model do
     end
 
     it "tests best discount" do
-      expect(@ii_5.best_discount.quantity_threshold).to eq(10)
+      expect(@ii_5.best_discount.percentage_discount).to eq(25.0)
     end
 
     it "calculates the invoice_item_total" do
