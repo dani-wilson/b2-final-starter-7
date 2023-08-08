@@ -42,7 +42,7 @@
             <td style="text-align:center">$<%= i.unit_price %>0</td>
             <td style="text-align:center">$<%= i.invoice_item_total %>0</td>
             <% if i.best_discount %>
-              <td style="text-align:center"><%= link_to i.best_discount.percentage_discount.round(0),  %>%</td>
+              <td style="text-align:center"><%= link_to i.best_discount.percentage_discount.round(0), merchant_discount_path(i.item.merchant, i.best_discount) %>%</td>
             <% else %>
               <td style="text-align:center">No Discount</td>
             <% end %>
